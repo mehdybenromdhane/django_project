@@ -1,0 +1,28 @@
+
+{% extends "index.html" %}
+
+
+
+{% block content %}
+
+
+<div class="d-flex p-5">
+{% for d in data %}
+<div class="card mx-2 " style="width: 18rem;">
+    <img src="{{d.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{d.title}}</h5>
+      <p class="card-text">{{d.description}}</p>
+      <p class="card-text">{{d.category}}</p>
+
+      <p class="card-text">{{d.state}}</p>
+
+      <a href="{% url 'details' d.id %}" class="btn btn-primary">Details</a>
+    </div>
+  </div>
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}
