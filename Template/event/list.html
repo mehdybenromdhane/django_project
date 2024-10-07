@@ -16,6 +16,7 @@
       <p class="card-text">{{d.category}}</p>
 
       <p class="card-text">{{d.state}}</p>
+      <p class="card-text"> Number of participants : {{d.nbr_participants}}</p>
 
       <a href="{% url 'details' d.id %}" class="btn btn-primary">Details</a>
     </div>
@@ -25,4 +26,10 @@
 
 </div>
 
+{% endblock %}
+
+
+{% block footer %}
+
+<h1>Footer</h1>
 {% endblock %}

@@ -63,7 +63,7 @@ class EventAdmin(admin.ModelAdmin):
             msg = f"{row_updated} events were" 
             
         messages.success(request, f"{msg} successfully updated"  )
-    list_display=('title','nbr_participants','state','category','evt_date','description','participant',)
+    list_display=('title','nbr_participants','state','category','evt_date','description',)
 
     actions=[accept_state , refuse_state]
     def numberOfParticipant(self,obj):

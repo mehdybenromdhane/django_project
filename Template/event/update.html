@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+
+
+{% block content %}
+
+
+
+<div class="container p-5">
+
+    <h1>Update event </h1>
+<form  method="POST" class="form-group" enctype="multipart/form-data">
+
+
+    {% csrf_token %}
+
+    {{form.as_ul}}
+
+
+    <input type="submit" class="btn btn-primary"  value="Save" name="save" id="">
+
+    
+</form>
+
+</div>
+
+{% endblock %}
