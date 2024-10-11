@@ -15,27 +15,9 @@
 
       <a href="{% url 'delete' event.id %} " class="btn btn-danger">Delete</a>
 
-      {% if button %}
-
-      <button disabled class="btn btn-success"><a href="{% url 'participer' event.id %} " class="btn btn-success" >Participer</a>
-      </button>
-
-      <button class="btn btn-info">
-      <a href="{% url 'cancel' event.id %} " class="btn btn-info">Cancel</a>
-    </button>
-
-      {% else %}
-
-      <button class="btn btn-success">
-      <a href="{% url 'participer' event.id %} " class="btn btn-success" >Participer</a>
-
-    </button>
-
-    <button disabled class="btn btn-info">
-      <a href="{% url 'cancel' event.id %} " class="btn btn-info" >Cancel</a>
-    </button>
-      {% endif %}
-    </div>
+      <a href="{% url 'participer' event.id  %}" class="btn btn-success {% if button %} disabled  {% else %}  {% endif %}"> Participer</a>
+      <a href="{% url 'cancel' event.id  %}" class="btn btn-info {% if button %}  {% else %} disabled {% endif %} "> Cancel</a>
+ 
     <div class="card-footer">
       <small class="text-muted">{{event.evt_date}}</small>
     </div>
