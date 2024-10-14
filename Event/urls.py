@@ -14,6 +14,7 @@ urlpatterns = [
     path('update/<int:pk>' , UpdateEvent.as_view() , name="update"),
     path('delete/<int:pk>' , DeleteEvent.as_view() , name="delete"),
     path('participer/<int:eventId>' , participer , name="participer"),
-    path('cancel/<int:eventId>' , cancel , name="cancel")
+    path('cancel/<int:eventId>' , cancel , name="cancel"),
+    path('generate/<str:title>' , ai_generate_description , name="generate")
 
 ] 

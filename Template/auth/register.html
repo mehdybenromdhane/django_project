@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+
+
+{% block content %}
+
+
+<form method="post">
+
+
+    {% csrf_token %}
+
+
+    <div class="form-control"> {{form.as_ul}}</div>
+
+    <input type="submit" value="Register" class="btn btn-primary">
+
+</form>
+{% endblock %}

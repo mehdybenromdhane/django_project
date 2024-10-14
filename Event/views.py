@@ -8,7 +8,11 @@ from django.http import HttpResponse
 from .forms import EventForm
 
 from django.urls import reverse_lazy
-
+import google.generativeai as genai
+import requests
+import os
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from Person.models import Person
 def hello(req):
@@ -16,6 +20,17 @@ def hello(req):
     return HttpResponse("Hello 5twin 2")
 
 
+
+# GOOGLE_API_KEY = os.getenv('AIzaSyC2wjxT8ovBxQsghaOSkReZGaj4AktXKgs')
+genai.configure(api_key="AIzaSyC2wjxT8ovBxQsghaOSkReZGaj4AktXKgs")
+
+
+def ai_generate_description(request, title):
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    prompt = f"Generate a detailed description for an event with the title in 4 lines: {title}"
+    
+    response = model.generate_content(prompt)
+    return HttpResponse(response.text)
 def listEvent(request):
     
     events= Event.objects.all().order_by('category')
@@ -29,8 +44,8 @@ def detailsEvent(request, ide):
     
     event = Event.objects.get(id=ide)
     
-    user = Person.objects.get(cin=7884)
-    
+   
+    user = request.user
     if user:
         participant= Participants.objects.filter(person=user,event=event)
         
@@ -61,6 +76,7 @@ class List(ListView):
     
     
     
+@login_required
 def addEvent(request):
     
     form = EventForm()
@@ -69,6 +85,8 @@ def addEvent(request):
         form = EventForm(request.POST,request.FILES)
         
         if form.is_valid():
+            
+            form.instance.organisateur = request.user
             
             form.save()
             
@@ -80,7 +98,7 @@ def addEvent(request):
 
 
 
-class add(CreateView):
+class add(LoginRequiredMixin,CreateView):
     
     model=Event
     template_name="event/add.html"
@@ -113,8 +131,8 @@ class DeleteEvent(DeleteView):
 def participer(request, eventId):
     
     
-    p1 = Person.objects.get(cin=7884)
-    
+
+    p1 = request.user    
     event1 = Event.objects.get(id=eventId)
     
     particpant = Participants.objects.create(person=p1 , event=event1)
@@ -129,7 +147,7 @@ def participer(request, eventId):
 
 
 def cancel (request, eventId):
-    p1 = Person.objects.get(cin=7884)
+    p1 = request.user    
     
     event1 = Event.objects.get(id=eventId)
     
