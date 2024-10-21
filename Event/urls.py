@@ -15,6 +15,9 @@ urlpatterns = [
     path('delete/<int:pk>' , DeleteEvent.as_view() , name="delete"),
     path('participer/<int:eventId>' , participer , name="participer"),
     path('cancel/<int:eventId>' , cancel , name="cancel"),
-    path('generate/<str:title>' , ai_generate_description , name="generate")
+    path('generate-description/' , generate_description , name="generate_description"),
+    path('generateImage/' , generate_image , name="generate_image"),
+
+ 
 
 ] 
